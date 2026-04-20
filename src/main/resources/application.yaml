@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: gambling_core
+  datasource:
+    url: "jdbc:mysql://w3b-gambl1ng-db-chr0ma-gambl1ng.e.aivencloud.com:12439/defaultdb?useSSL=true&requireSSL=true&allowPublicKeyRetrieval=true"
+    username: "avnadmin"
+    password: "AVNS_cSV28DxKqCe_dGP3z-H"
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
