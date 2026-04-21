@@ -169,7 +169,7 @@ async function playDice() {
     if (delta < 0) delta += 360;
 
     currentWheelAngle += 10 * 360 + delta;
-    wheel.style.transform = `rotate(${-currentWheelAngle}deg)`;
+    wheel.style.transform = `rotate(${currentWheelAngle}deg)`;
 
     setTimeout(() => {
       const win = parseFloat(winAmountStr).toFixed(2);
