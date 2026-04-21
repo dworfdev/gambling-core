@@ -48,7 +48,7 @@ public class GameController
         }
         else if (roll < yellowChance + greenChance)
         {
-            int[] greenSectors = {1,3,5,7,9,11,13,15,17,19,21,23};
+            int[] greenSectors = {1,3,5,7,9,11,13,15,17,19};
             sector = greenSectors[rng.nextInt(greenSectors.length)];
             resultType = "green";
             winAmount = bet.multiply(new BigDecimal("2.50"));
@@ -57,7 +57,7 @@ public class GameController
         }
         else
         {
-            int[] redSectors = {2,4,6,8,10,12,14,16,18,20,22};
+            int[] redSectors = {2,4,6,8,10,12,14,16,18};
             sector = redSectors[rng.nextInt(redSectors.length)];
             resultType = "red";
             player.setRiskLevel(Math.max(0.0, risk - 0.03));

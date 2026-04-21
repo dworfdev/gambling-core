@@ -35,7 +35,6 @@ function showScreen(name) {
   if (name === "admin") loadAdminStats();
 }
 
-// Навигация с возможным сжиганием хэша
 async function navigateAway(screenName) {
   if (activeHash) await invalidateCurrentHash();
   showScreen(screenName);
@@ -129,28 +128,8 @@ async function saveWallet() {
   }
 }
 
-// ─── Wheel (24 sectors) ───────────────────────────────────
-function buildWheel() {
-  const wheel = document.getElementById("dice-wheel");
-  const total = 24;
-  const deg = 360 / total;
-
-  let stops = [];
-  for (let i = 0; i < total; i++) {
-    let color;
-    if (i === 0)         color = "#FF9500"; // orange — max win
-    else if (i % 2 === 1) color = "#34C759"; // odd — green win
-    else                  color = "#FF3B30"; // even — red lose
-
-    const start = (i * deg).toFixed(3);
-    const end   = ((i + 1) * deg - 0.8).toFixed(3);
-    const sep   = ((i + 1) * deg).toFixed(3);
-    stops.push(`${color} ${start}deg ${end}deg`);
-    stops.push(`#0a0a0a ${end}deg ${sep}deg`);
-  }
-
-  wheel.style.backgroundImage = `conic-gradient(${stops.join(", ")})`;
-}
+// ─── Wheel (20 sectors) ───────────────────────────────────
+function buildWheel() {}
 
 // ─── Play dice ────────────────────────────────────────────
 async function playDice() {
@@ -177,17 +156,20 @@ async function playDice() {
       reset(); return;
     }
 
-    // Ответ: "sector|resultType|winAmount|newRisk"
     const raw = await res.text();
     const [sectorStr, resultType, winAmountStr] = raw.split("|");
     const sector = parseInt(sectorStr);
 
-    const sectorDeg = 360 / 24;
-    // Крутим так чтобы центр нужного сектора встал под pointer (top)
-    const targetAngle = sector * sectorDeg + sectorDeg / 2;
-    const spins = 10 * 360;
-    currentWheelAngle += spins - (currentWheelAngle % 360) - targetAngle;
-    wheel.style.transform = `rotate(${currentWheelAngle}deg)`;
+    const TOTAL_SECTORS = 20;
+    const sectorDeg = 360 / TOTAL_SECTORS;
+
+    const targetAngle = sector * sectorDeg;
+    const currentMod = ((currentWheelAngle % 360) + 360) % 360;
+    let delta = targetAngle - currentMod;
+    if (delta < 0) delta += 360;
+
+    currentWheelAngle += 10 * 360 + delta;
+    wheel.style.transform = `rotate(${-currentWheelAngle}deg)`;
 
     setTimeout(() => {
       const win = parseFloat(winAmountStr).toFixed(2);
