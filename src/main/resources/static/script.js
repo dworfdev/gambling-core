@@ -163,7 +163,7 @@ async function playDice() {
     const TOTAL_SECTORS = 20;
     const sectorDeg = 360 / TOTAL_SECTORS;
 
-    const targetAngle = sector * sectorDeg;
+    const targetAngle = sector * sectorDeg + sectorDeg / 2;
     const currentMod = ((currentWheelAngle % 360) + 360) % 360;
     let delta = targetAngle - currentMod;
     if (delta < 0) delta += 360;
