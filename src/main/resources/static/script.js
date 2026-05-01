@@ -101,7 +101,7 @@ async function loadData() {
       walletEl.title = p.walletAddress;
       showScreen("main");
     } else {
-      walletEl.textContent = "Wallet not linked";
+      walletEl.textContent = "WALLET NOT LINKED";
       walletEl.title = "";
       showScreen("wallet");
     }
@@ -144,7 +144,7 @@ async function playDice() {
 
   isSpinning = true;
   spinBtn.disabled = true;
-  outcome.textContent = "...";
+  outcome.textContent = "[ ... ]";
   outcome.style.color = "var(--muted)";
 
   try {
@@ -169,20 +169,20 @@ async function playDice() {
     if (delta < 0) delta += 360;
 
     currentWheelAngle += 10 * 360 + delta;
-    wheel.style.transform = `rotate(${currentWheelAngle}deg)`;
+    if (wheel) wheel.style.transform = `rotate(${currentWheelAngle}deg)`;
 
     setTimeout(() => {
       const win = parseFloat(winAmountStr).toFixed(2);
       if (resultType === "yellow") {
-        outcome.textContent = `MAX WIN! +${win}`;
-        outcome.style.color = "#FF9500";
+        outcome.textContent = `[ MAX WIN! +${win} ]`;
+        outcome.style.color = "#EEFF00";
         toast(`MAX WIN! +${win} 🎰`, "success");
       } else if (resultType === "green") {
-        outcome.textContent = `ВЫИГРЫШ +${win}`;
+        outcome.textContent = `[ WIN +${win} ]`;
         outcome.style.color = "var(--green)";
         toast(`Выигрыш +${win}`, "success");
       } else {
-        outcome.textContent = "ПРОИГРЫШ";
+        outcome.textContent = "[ LOSS ]";
         outcome.style.color = "var(--red)";
         toast("Не повезло", "error");
       }
@@ -210,7 +210,7 @@ async function navToPayment(type) {
     activePaymentType = type;
 
     document.getElementById("pay-title").textContent =
-      type === "deposit" ? "Пополнение" : "Вывод средств";
+      type === "deposit" ? "DEPOSIT" : "WITHDRAW";
     document.getElementById("pay-exec-btn").onclick = () => executePayment(type);
     document.getElementById("pay-amount").value = "";
 
@@ -265,7 +265,7 @@ async function loadAdminStats() {
 async function loadPending() {
   const targetId = document.getElementById("admin-target-tgid").value.trim();
   const list = document.getElementById("pending-list");
-  list.innerHTML = "<span class='hint'>Загрузка...</span>";
+  list.innerHTML = "<span class='hint'>&gt; Loading...</span>";
 
   try {
     const params = new URLSearchParams({ tgId: TG_ID, page: 0 });
@@ -274,7 +274,7 @@ async function loadPending() {
     const res = await fetch(`/api/admin/pending?` + params.toString());
     if (!res.ok) {
       const err = await res.json();
-      list.innerHTML = `<span class='hint'>Ошибка: ${err.message}</span>`;
+      list.innerHTML = `<span class='hint'>&gt; Error: ${err.message}</span>`;
       return;
     }
 
@@ -282,14 +282,14 @@ async function loadPending() {
     const transactions = page.content ?? page;
 
     if (!transactions.length) {
-      list.innerHTML = "<span class='hint'>Нет ожидающих заявок</span>";
+      list.innerHTML = "<span class='hint'>&gt; No pending transactions</span>";
       return;
     }
 
     list.innerHTML = "";
     transactions.forEach(tx => renderTxCard(tx, list));
   } catch (e) {
-    list.innerHTML = `<span class='hint'>Ошибка: ${e.message}</span>`;
+    list.innerHTML = `<span class='hint'>&gt; Error: ${e.message}</span>`;
   }
 }
 
@@ -298,17 +298,17 @@ function renderTxCard(tx, container) {
   card.className = "tx-card";
   card.id = `tx-${tx.id}`;
 
-  const typeLabel = tx.type === "DEPOSIT" ? "Пополнение" : "Вывод";
+  const typeLabel = tx.type === "DEPOSIT" ? "DEPOSIT" : "WITHDRAW";
   const created = tx.createdAt ? new Date(tx.createdAt).toLocaleString("ru") : "—";
 
   card.innerHTML = `
     <div><b>${typeLabel}</b> — <span class="tx-amount">${parseFloat(tx.amount).toFixed(2)} USDT</span></div>
     <div class="tx-meta">ID: ${tx.id} · tgId: ${tx.tgId}</div>
-    <div class="tx-meta">Кошелёк: ${tx.walletAddress ?? "—"}</div>
-    <div class="tx-meta">Создана: ${created}</div>
+    <div class="tx-meta">Wallet: ${tx.walletAddress ?? "—"}</div>
+    <div class="tx-meta">Created: ${created}</div>
     <div class="tx-actions">
-      <button class="btn-approve" onclick="approveTransaction(${tx.id}, true, this)">Одобрить</button>
-      <button class="btn-reject"  onclick="approveTransaction(${tx.id}, false, this)">Отклонить</button>
+      <button class="btn-approve" onclick="approveTransaction(${tx.id}, true, this)">[ APPROVE ]</button>
+      <button class="btn-reject"  onclick="approveTransaction(${tx.id}, false, this)">[ REJECT ]</button>
     </div>
   `;
   container.appendChild(card);
@@ -323,12 +323,12 @@ async function approveTransaction(transactionId, approve, btn) {
 
     const text = await res.text();
     if (res.ok) {
-      toast(`Заявка #${transactionId} ${approve ? "одобрена" : "отклонена"}`, "success");
+      toast(`TX #${transactionId} ${approve ? "approved" : "rejected"}`, "success");
       const card = document.getElementById(`tx-${transactionId}`);
       if (card) {
         card.style.opacity = "0.4";
         card.querySelector(".tx-actions").innerHTML =
-          `<span class="tx-meta">${approve ? "✓ Одобрено" : "✗ Отклонено"}</span>`;
+          `<span class="tx-meta">${approve ? "✓ APPROVED" : "✗ REJECTED"}</span>`;
       }
     } else {
       try { toast(JSON.parse(text).message, "error"); }
