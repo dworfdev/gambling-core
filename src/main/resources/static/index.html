@@ -112,58 +112,11 @@
       </div>
     </div>
 
-    <!-- Eye flowers separator -->
-    <div class="section-flowers" aria-hidden="true">
-      <svg class="eye-svg" width="24" height="24" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="6" fill="none" stroke="#FF2D78" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="#00FF00"/><circle cx="12" cy="12" r="1.2" fill="#000"/></svg>
-      <svg class="eye-svg" width="24" height="24" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="6" fill="none" stroke="#00FF00" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="#FF2D78"/><circle cx="12" cy="12" r="1.2" fill="#000"/></svg>
-      <svg class="eye-svg" width="24" height="24" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="6" fill="none" stroke="#FFFF00" stroke-width="1.5"/><circle cx="12" cy="12" r="3" fill="#00FF00"/><circle cx="12" cy="12" r="1.2" fill="#000"/></svg>
-    </div>
-
-    <!-- 2-col product grid (casino games) -->
-    <h2 class="section-title glitch-sm" data-text="// GAMES //">// GAMES //</h2>
-    <div class="product-grid">
-
-      <div class="product-card crt-card" onclick="document.getElementById('dice-stage-wrap').scrollIntoView({behavior:'smooth'})">
-        <div class="product-card-icon">🎰</div>
-        <div class="product-card-name">WHEEL<br>OF FATE</div>
-        <div class="product-card-tag">ACTIVE</div>
-        <div class="product-card-odds">x0.5 — x5</div>
-      </div>
-
-      <div class="product-card crt-card product-card--locked">
-        <div class="product-card-icon">🃏</div>
-        <div class="product-card-name">BLACKJACK<br>UNDERGROUND</div>
-        <div class="product-card-tag tag-locked">SOON</div>
-        <div class="product-card-odds">—</div>
-      </div>
-
-      <div class="product-card crt-card product-card--locked">
-        <div class="product-card-icon">🎲</div>
-        <div class="product-card-name">CYBER<br>DICE</div>
-        <div class="product-card-tag tag-locked">SOON</div>
-        <div class="product-card-odds">—</div>
-      </div>
-
-      <div class="product-card crt-card product-card--locked">
-        <div class="product-card-icon">🐉</div>
-        <div class="product-card-name">DRAGON<br>CRASH</div>
-        <div class="product-card-tag tag-locked">SOON</div>
-        <div class="product-card-odds">—</div>
-      </div>
-
-    </div>
-
     <!-- Wheel (actual game) -->
     <div id="dice-stage-wrap">
       <div id="dice-stage">
         <img id="dice-wheel"   src="/wheel.png" alt="" onerror="this.style.display='none'">
         <img id="dice-overlay" src="/overlay_arrow.png" alt="" onerror="this.style.display='none'">
-        <!-- Fallback wheel visual if images not found -->
-        <div id="wheel-fallback" class="wheel-fallback">
-          <div class="wheel-inner">
-            <span>SPIN</span>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -185,10 +138,8 @@
         <span class="terminal-title">SYS_LOG</span>
       </div>
       <div class="terminal-body">
-        <div class="terminal-line">[STATUS] ENCRYPTED</div>
-        <div class="terminal-line">[STASH] LOCATED</div>
-        <div class="terminal-line">[USER] DWORF_ADMIN</div>
-        <div class="terminal-line blink">&gt; <span class="cursor">█</span></div>
+        <div class="terminal-line">CHROMA</div>
+        <div class="terminal-line" style="color:var(--muted)">since april 2026</div>
       </div>
     </div>
 

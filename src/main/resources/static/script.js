@@ -59,7 +59,7 @@ function setActiveNav(id) {
 // ─── Load player data ─────────────────────────────────────
 async function loadData() {
   if (!TG_ID) {
-    toast("Откройте приложение через Telegram", "error");
+    toast("Open the app via Telegram", "error");
     return;
   }
 
@@ -68,7 +68,7 @@ async function loadData() {
 
     if (res.status === 400 || res.status === 404) {
       const createRes = await fetch(`/api/players?tgId=${TG_ID}`, { method: "POST" });
-      if (!createRes.ok) throw new Error("Не удалось создать пользователя");
+      if (!createRes.ok) throw new Error("Failed to create user");
       res = await fetch(`/api/players/${TG_ID}`);
     }
 
@@ -106,14 +106,14 @@ async function loadData() {
       showScreen("wallet");
     }
   } catch (e) {
-    toast("Ошибка загрузки данных: " + e.message, "error");
+    toast("Error loading data: " + e.message, "error");
   }
 }
 
 // ─── Bind wallet ──────────────────────────────────────────
 async function saveWallet() {
   const addr = document.getElementById("wallet-input").value.trim();
-  if (addr.length < 10) { toast("Слишком короткий адрес", "error"); return; }
+  if (addr.length < 10) { toast("Address too short", "error"); return; }
   try {
     const res = await fetch("/api/payments/player/bind-wallet", {
       method: "POST",
@@ -121,10 +121,10 @@ async function saveWallet() {
       body: JSON.stringify({ id: TG_ID, address: addr }),
     });
     if (!res.ok) throw new Error(await res.text());
-    toast("Кошелёк привязан", "success");
+    toast("Wallet linked", "success");
     await loadData();
   } catch (e) {
-    toast("Ошибка привязки: " + e.message, "error");
+    toast("Link error: " + e.message, "error");
   }
 }
 
@@ -136,7 +136,7 @@ async function playDice() {
   if (isSpinning) return;
 
   const bet = parseFloat(document.getElementById("bet-amount").value);
-  if (!bet || bet <= 0) { toast("Укажите ставку", "error"); return; }
+  if (!bet || bet <= 0) { toast("Enter bet amount", "error"); return; }
 
   const wheel   = document.getElementById("dice-wheel");
   const outcome = document.getElementById("dice-outcome");
@@ -151,7 +151,7 @@ async function playDice() {
     const res = await fetch(`/api/games/dice?id=${TG_ID}&bet=${bet}`, { method: "POST" });
 
     if (!res.ok) {
-      const err = await res.json().catch(() => ({ message: "Ошибка сервера" }));
+      const err = await res.json().catch(() => ({ message: "Connection error" }));
       toast(err.message, "error");
       reset(); return;
     }
@@ -191,7 +191,7 @@ async function playDice() {
     }, 4100);
 
   } catch (e) {
-    toast("Ошибка связи", "error");
+    toast("Connection error", "error");
     reset();
   }
 
@@ -204,7 +204,7 @@ async function navToPayment(type) {
 
   try {
     const res = await fetch(`/api/payments/prepare?id=${TG_ID}`, { cache: "no-store" });
-    if (!res.ok) throw new Error("Сервер вернул " + res.status);
+    if (!res.ok) throw new Error("Server returned " + res.status);
 
     activeHash = (await res.text()).replace(/^"|"$/g, "").trim();
     activePaymentType = type;
@@ -216,15 +216,15 @@ async function navToPayment(type) {
 
     showScreen("pay");
   } catch (e) {
-    toast("Ошибка получения токена: " + e.message, "error");
+    toast("Token error: " + e.message, "error");
   }
 }
 
 // ─── Execute payment ──────────────────────────────────────
 async function executePayment(type) {
   const amount = parseFloat(document.getElementById("pay-amount").value);
-  if (!amount || amount <= 0) { toast("Укажите сумму", "error"); return; }
-  if (!activeHash) { toast("Сессия истекла — начните заново", "error"); return; }
+  if (!amount || amount <= 0) { toast("Enter amount", "error"); return; }
+  if (!activeHash) { toast("Session expired — start over", "error"); return; }
 
   const endpoint = type === "deposit" ? "/api/payments/deposit" : "/api/payments/cashout";
 
@@ -238,7 +238,7 @@ async function executePayment(type) {
     const text = await res.text();
     activeHash = "";
     if (res.ok) {
-      toast(type === "deposit" ? "Заявка на пополнение отправлена" : "Заявка на вывод отправлена", "success");
+      toast(type === "deposit" ? "Deposit request sent" : "Withdrawal request sent", "success");
       showScreen("main");
       await loadData();
     } else {
@@ -246,7 +246,7 @@ async function executePayment(type) {
       catch { toast(text, "error"); }
     }
   } catch (e) {
-    toast("Ошибка сети", "error");
+    toast("Network error", "error");
   }
 }
 
@@ -336,7 +336,7 @@ async function approveTransaction(transactionId, approve, btn) {
       btn.closest(".tx-actions").querySelectorAll("button").forEach(b => b.disabled = false);
     }
   } catch (e) {
-    toast("Ошибка сети", "error");
+    toast("Network error", "error");
     btn.closest(".tx-actions").querySelectorAll("button").forEach(b => b.disabled = false);
   }
 }
