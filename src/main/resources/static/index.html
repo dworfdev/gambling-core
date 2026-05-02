@@ -24,49 +24,19 @@
 <!-- ── HEADER ── -->
 <header id="header">
   <div class="header-top-row">
-    <!-- VW T4 Van Logo (SVG inline) -->
-    <div class="van-logo" title="DWORF.DEV">
-      <svg width="48" height="32" viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="10" width="44" height="16" fill="#000" stroke="#00FF00" stroke-width="1.5"/>
-        <rect x="4" y="4" width="26" height="10" fill="#000" stroke="#00FF00" stroke-width="1.5"/>
-        <rect x="6" y="6" width="10" height="6" fill="#00FF00" opacity="0.15"/>
-        <rect x="18" y="6" width="10" height="6" fill="#00FF00" opacity="0.15"/>
-        <line x1="16" y1="5" x2="16" y2="14" stroke="#00FF00" stroke-width="1.5"/>
-        <rect x="32" y="7" width="12" height="7" fill="#000" stroke="#00FF00" stroke-width="1.5"/>
-        <circle cx="10" cy="27" r="4" fill="#000" stroke="#00FF00" stroke-width="1.5"/>
-        <circle cx="10" cy="27" r="1.5" fill="#00FF00"/>
-        <circle cx="36" cy="27" r="4" fill="#000" stroke="#00FF00" stroke-width="1.5"/>
-        <circle cx="36" cy="27" r="1.5" fill="#00FF00"/>
-        <polygon points="44,18 48,18 48,22 44,22" fill="#FFFF00"/>
-        <polygon points="2,18 0,18 0,22 2,22" fill="#FF2D78" opacity="0.6"/>
-      </svg>
-    </div>
-
     <div class="header-stats">
-      <span class="stat-label">UID:<b id="p-id">—</b></span>
-      <span class="stat-label">BAL:<b id="p-balance">—</b></span>
+      <span class="stat-label">UID: <b id="p-id">—</b></span>
+      <span class="stat-label">BAL: <b id="p-balance">—</b></span>
+      <span class="wallet-line" id="p-wallet">WALLET NOT LINKED</span>
     </div>
-
-    <button class="btn-refresh" onclick="loadData()">↻</button>
-  </div>
-
-  <!-- Eye-flower decorative row -->
-  <div class="eye-flowers" aria-hidden="true">
-    <span class="eye-flower">⚘</span>
-    <span class="eye-flower">⊙</span>
-    <span class="eye-flower">⚘</span>
-    <span class="eye-flower">⊙</span>
-    <span class="eye-flower">⚘</span>
   </div>
 
   <!-- Marquee -->
   <div class="marquee-wrap">
     <div class="marquee-inner">
-      <span>KYIVS'KIJ DRAP // DWORF.DEV // CONNECTION SECURE... // KYIVS'KIJ DRAP // DWORF.DEV // CONNECTION SECURE... // KYIVS'KIJ DRAP // DWORF.DEV // CONNECTION SECURE... //&nbsp;</span>
+      <span>CHROMA GAMBLING | DRIVER MANAGER RETURNED SUCCESS | CONNECTION SECURED | CHROMA GAMBLING | DRIVER MANAGER RETURNED SUCCESS | CONNECTION SECURED | CHROMA GAMBLING | DRIVER MANAGER RETURNED SUCCESS | CONNECTION SECURED |</span>
     </div>
   </div>
-
-  <div class="wallet-line" id="p-wallet">WALLET NOT LINKED</div>
 </header>
 
 <!-- ── MAIN APP ── -->
@@ -75,7 +45,7 @@
   <!-- ── Screen: Bind Wallet ── -->
   <section id="screen-wallet" class="screen" style="display:none">
     <h1 class="screen-title glitch" data-text="LINK WALLET">LINK WALLET</h1>
-    <p class="hint">&gt; Enter your TON address. Set once. No refunds.</p>
+    <p class="hint">&gt; Enter your TON address. Set once.</p>
 
     <!-- Terminal window -->
     <div class="terminal-window">
@@ -83,12 +53,11 @@
         <span class="terminal-dot dot-red"></span>
         <span class="terminal-dot dot-yellow"></span>
         <span class="terminal-dot dot-green"></span>
-        <span class="terminal-title">SECURE_TERMINAL v1.0</span>
+        <span class="terminal-title">LOGS</span>
       </div>
       <div class="terminal-body">
-        <div class="terminal-line">[STATUS] ENCRYPTED</div>
-        <div class="terminal-line">[STASH] LOCATED</div>
-        <div class="terminal-line">[USER] DWORF_ADMIN</div>
+        <div class="terminal-line">Connected to Cloud DB</div>
+        <div class="terminal-line">Returned null as a wallet adress</div>
         <div class="terminal-line blink">&gt; awaiting wallet input_<span class="cursor">█</span></div>
       </div>
     </div>
@@ -135,7 +104,7 @@
         <span class="terminal-dot dot-red"></span>
         <span class="terminal-dot dot-yellow"></span>
         <span class="terminal-dot dot-green"></span>
-        <span class="terminal-title">SYS_LOG</span>
+        <span class="terminal-title">ABOUT</span>
       </div>
       <div class="terminal-body">
         <div class="terminal-line">CHROMA</div>
@@ -160,7 +129,7 @@
 
     <div class="card">
       <input id="pay-amount" type="number" placeholder="AMOUNT (USDT)" min="0.01" step="0.01">
-      <p class="hint">&gt; Available: <span id="pay-balance-hint">—</span> · Minimum $10</p>
+      <p class="hint">&gt; Available: <span id="pay-balance-hint">—</span> · Minimum $2</p>
       <button class="btn-primary" id="pay-exec-btn">[ SEND ]</button>
     </div>
 
@@ -177,13 +146,11 @@
         <span class="terminal-dot dot-red"></span>
         <span class="terminal-dot dot-yellow"></span>
         <span class="terminal-dot dot-green"></span>
-        <span class="terminal-title">ADMIN_TERMINAL</span>
+        <span class="terminal-title">LOGS</span>
       </div>
       <div class="terminal-body">
-        <div class="terminal-line">[STATUS] ENCRYPTED</div>
-        <div class="terminal-line">[STASH] LOCATED</div>
-        <div class="terminal-line">[USER] DWORF_ADMIN</div>
-        <div class="terminal-line">[ACCESS] ROOT_GRANTED</div>
+        <div class="terminal-line">Connected to Cloud DB</div>
+        <div class="terminal-line">Returned available pending transactions</div>
       </div>
     </div>
 
@@ -199,7 +166,7 @@
       <button class="btn-blue-sm" onclick="loadPending()">[ LOAD ]</button>
     </div>
 
-    <h2 class="section-title glitch-sm" data-text="// TX HISTORY //">// TX HISTORY //</h2>
+    <h2 class="section-title glitch-sm" data-text="TX HISTORY">TX HISTORY</h2>
 
     <div id="pending-list" class="pending-list">
       <span class="hint">&gt; Transactions not loaded</span>

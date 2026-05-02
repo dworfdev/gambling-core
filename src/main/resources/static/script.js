@@ -176,15 +176,12 @@ async function playDice() {
       if (resultType === "yellow") {
         outcome.textContent = `[ MAX WIN! +${win} ]`;
         outcome.style.color = "#EEFF00";
-        toast(`MAX WIN! +${win} 🎰`, "success");
       } else if (resultType === "green") {
         outcome.textContent = `[ WIN +${win} ]`;
         outcome.style.color = "var(--green)";
-        toast(`Выигрыш +${win}`, "success");
       } else {
         outcome.textContent = "[ LOSS ]";
         outcome.style.color = "var(--red)";
-        toast("Не повезло", "error");
       }
       reset();
       loadData();

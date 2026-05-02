@@ -205,8 +205,6 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  flex: 1;
-  font-size: 11px;
 }
 
 .stat-label {
